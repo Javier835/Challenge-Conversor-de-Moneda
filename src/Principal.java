@@ -13,6 +13,13 @@ public class Principal {
         int userSelectedOption = 0;
         int userValueConverter = 0;
 
+        //variable para capturar el resultado de la conversión
+        double resultado = 0;
+
+        //variables para almacenar el tipo de divisa origen y destino para cada conversión
+        String divisaOrigen = "";
+        String divisaDestino = "";
+
         //bucle para repetir el menú hasta que el usuario seleccione la opción 7
         while(userSelectedOption != 7){
             //menú que se muestra al usuario
@@ -32,53 +39,51 @@ public class Principal {
             //capturar la selección del usuario
             userSelectedOption = lector.nextInt();
 
-            //variable para capturar el resultado de la conversión
-            double resultado = 0;
+            if(userSelectedOption >= 1 && userSelectedOption <= 7){
 
-            //switch case para evaluar la conversión que corresponda según la opción seleccionada por el usuario
-            switch (userSelectedOption){
-                case 1:
+                //switch case para evaluar la conversión que corresponda según la opción seleccionada por el usuario
+                switch (userSelectedOption){
+                    case 1:
+                        divisaOrigen = "USD";
+                        divisaDestino = "DOP";
+                        break;
+                    case 2:
+                        divisaOrigen = "DOP";
+                        divisaDestino = "USD";
+                        break;
+                    case 3:
+                        divisaOrigen = "USD";
+                        divisaDestino = "ARS";
+                        break;
+                    case 4:
+                        divisaOrigen = "ARS";
+                        divisaDestino = "USD";
+                        break;
+                    case 5:
+                        divisaOrigen = "USD";
+                        divisaDestino = "COP";
+                        break;
+                    case 6:
+                        divisaOrigen = "COP";
+                        divisaDestino = "USD";
+                        break;
+                    case 7:
+                        System.out.println("Gracias por utilizar nuestro conversor de monedas");
+                        break;
+                    default:
+                        System.out.println("Ingrese un valor valido");
+                        break;
+                }
+
+                //comprobar si el usuario no haya seleccionado la opción 7 para salir
+                if (userSelectedOption != 7){
                     System.out.println("Ingrese el valor que desea convertir:"); //mensaje que pide al usuario insertar el valor a convertir
                     userValueConverter = lector.nextInt(); //capturando el valor digitado por el usuario
-                    resultado = userValueConverter * convertirMonedas("USD","DOP"); //calculando el resultado multiplicando el valor a convertir por el resultado de la función convertir monedas
-                    System.out.println("El valor de "+userValueConverter+" USD "+"corresponde al valor final de: "+resultado+" DOP"); //Respuesta al usuario con los datos de conversión
-                    break;
-                case 2:
-                    System.out.println("Ingrese el valor que desea convertir:");
-                    userValueConverter = lector.nextInt();
-                    resultado = userValueConverter * convertirMonedas("DOP","USD");
-                    System.out.println("El valor de "+userValueConverter+" DOP "+"corresponde al valor final de: "+resultado+" USD");
-                    break;
-                case 3:
-                    System.out.println("Ingrese el valor que desea convertir:");
-                    userValueConverter = lector.nextInt();
-                    resultado = userValueConverter * convertirMonedas("USD","ARS");
-                    System.out.println("El valor de "+userValueConverter+" USD "+"corresponde al valor final de: "+resultado+" ARS");
-                    break;
-                case 4:
-                    System.out.println("Ingrese el valor que desea convertir:");
-                    userValueConverter = lector.nextInt();
-                    resultado = userValueConverter * convertirMonedas("ARS","USD");
-                    System.out.println("El valor de "+userValueConverter+" ARS"+"corresponde al valor final de: "+resultado+" USD");
-                    break;
-                case 5:
-                    System.out.println("Ingrese el valor que desea convertir:");
-                    userValueConverter = lector.nextInt();
-                    resultado = userValueConverter * convertirMonedas("USD","COP");
-                    System.out.println("El valor de "+userValueConverter+" USD "+"corresponde al valor final de: "+resultado+" COP");
-                    break;
-                case 6:
-                    System.out.println("Ingrese el valor que desea convertir:");
-                    userValueConverter = lector.nextInt();
-                    resultado = userValueConverter * convertirMonedas("COP","USD");
-                    System.out.println("El valor de "+userValueConverter+" COP "+"corresponde al valor final de: "+resultado+" USD");
-                    break;
-                case 7:
-                    System.out.println("Gracias por utilizar nuestro conversor de monedas");
-                    break;
-                default:
-                    System.out.println("Ingrese un valor valido");
-                    break;
+
+                    resultado = userValueConverter * convertirMonedas(divisaOrigen,divisaDestino); //calculando el resultado multiplicando el valor a convertir por el resultado de la función convertir monedas
+                    System.out.println("El valor de "+userValueConverter+" "+divisaOrigen+" corresponde al valor final de: "+resultado+" "+divisaDestino); //Respuesta al usuario con los datos de conversión
+                }
+
             }
         }
     }
@@ -93,7 +98,7 @@ public class Principal {
             return rates.get(divisaDestino).getAsDouble();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Ha ocurrido el siguiente error: "+ e.getMessage());
         }
         return 0;
     }
