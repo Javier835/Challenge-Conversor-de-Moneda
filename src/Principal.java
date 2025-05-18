@@ -6,14 +6,16 @@ import java.util.Scanner;
 public class Principal {
     public static void main(String[] args) {
 
+        //variable para capturar respuestas de los usuarios
         Scanner lector = new Scanner(System.in);
 
-
-
+        //variables para capturar la selección del usuario y el valor a convertir
         int userSelectedOption = 0;
         int userValueConverter = 0;
 
+        //bucle para repetir el menú hasta que el usuario seleccione la opción 7
         while(userSelectedOption != 7){
+            //menú que se muestra al usuario
             System.out.println("*******************************************************************");
             System.out.println("Sean bienvenidos al conversor de monedas");
 
@@ -27,16 +29,19 @@ public class Principal {
             System.out.println("Elija una opción válida");
             System.out.println("*******************************************************************");
 
+            //capturar la selección del usuario
             userSelectedOption = lector.nextInt();
 
+            //variable para capturar el resultado de la conversión
             double resultado = 0;
 
+            //switch case para evaluar la conversión que corresponda según la opción seleccionada por el usuario
             switch (userSelectedOption){
                 case 1:
-                    System.out.println("Ingrese el valor que desea convertir:");
-                    userValueConverter = lector.nextInt();
-                    resultado = userValueConverter * convertirMonedas("USD","DOP");
-                    System.out.println("El valor de "+userValueConverter+" USD "+"corresponde al valor final de: "+resultado+" DOP");
+                    System.out.println("Ingrese el valor que desea convertir:"); //mensaje que pide al usuario insertar el valor a convertir
+                    userValueConverter = lector.nextInt(); //capturando el valor digitado por el usuario
+                    resultado = userValueConverter * convertirMonedas("USD","DOP"); //calculando el resultado multiplicando el valor a convertir por el resultado de la función convertir monedas
+                    System.out.println("El valor de "+userValueConverter+" USD "+"corresponde al valor final de: "+resultado+" DOP"); //Respuesta al usuario con los datos de conversión
                     break;
                 case 2:
                     System.out.println("Ingrese el valor que desea convertir:");
@@ -78,6 +83,7 @@ public class Principal {
         }
     }
 
+    //metodo para realizar la conversión de monedas
     public static double convertirMonedas (String divisaOrigen, String divisaDestino){
         try {
             Webservice ws = new Webservice();
